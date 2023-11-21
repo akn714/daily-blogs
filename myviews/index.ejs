@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lecture 06 | <%= title %></title>
+</head> -->
+
+<%- include('./partials/head.ejs') %>
+
+
+<body>
+    
+    <!-- <nav>
+        <a href="/">home</a>
+        <a href="/about">about</a>
+        <a href="/create">create</a>
+    </nav> -->
+
+    <%- include('./partials/nav.ejs') %>
+
+
+    <% name='lecture 06' %> 
+    <h1><%= name %></h1>
+    <h1>this is ejs file</h1>
+
+    <div class="blogs content">
+        <h2>all blogs</h2>
+        <% if(blogs.length>0) { %>
+            <% blogs.forEach(Blog=>{ %>
+                <a class="single" href="/blog/<%= Blog.id %>"">
+                    <h3><%= Blog.title %></h3>
+                    <p><%= Blog.snippet %></p>
+                </a>
+            <% }) %>
+        <% } else { %>
+            <p>no blogs to display</p>
+        <% } %>
+    </div>
+
+</body>
+</html>

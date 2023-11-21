@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head.ejs') %>
+</head>
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <form action="/admin/login" method="post">
+        <input type="text" name="username" placeholder="username">
+        <input type="password" name="passsword" placeholder="password">
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>

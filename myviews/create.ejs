@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lecture 06 | <%= title %></title>
+</head> -->
+
+<%- include('./partials/head.ejs') %>
+
+
+<body>
+
+    <!-- <nav>
+        <a href="/">home</a>
+        <a href="/about">about</a>
+        <a href="/create">create</a>
+    </nav> -->
+
+    <%- include('./partials/nav.ejs') %>
+
+    <div class="create-blog content">
+        <form action="/blog", method="POST">
+            <label for="title">Blog Title</label>
+            <input type="text" id="title" name="title">
+            <label for="snippet">Blog snippet</label>
+            <input type="text" id="snippet" name="snippet">
+            <label for="body">Blog body</label>
+            <textarea id="body" name="body" required></textarea>
+            <button>submit</button>
+        </form>
+    </div>
+</body>
+</html>
