@@ -1,12 +1,18 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken')
+const cookieParser = require('cookie-parser')
 const blogRouter = require('./routers/blog.router');
-const adminRouter = require('./routers/admin.router')
+const adminRouter = require('./routers/admin.router');
 const logger = require('./logger');
+const { isAdmin } = require('./controllers/permission.controller')
 
 const app = express();
 
 const dotenv = require('dotenv')
 dotenv.config()
+
+const JWT_KEY = process.env.sk;
 
 // connection string to connect to mongodb atlas (online)
 const dbURI = process.env.DB_LINK
@@ -20,6 +26,7 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true})
 })
 .catch((err)=>{ console.log(err)} )
 
+app.use(cookieParser())
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(logger)     // middleware for loging method and path of request
@@ -38,5 +45,11 @@ app.use('/admin', adminRouter)
 
 // this function will be fired when no match found
 app.use((req, res)=>{
-    res.status(404).render('404', { title: '404 NOT FOUND' })
+    const token = req.cookies.tkn;
+    let isAdminLoggedIn = false;
+    if(token){
+        let payload = jwt.verify(token, JWT_KEY);
+        if(payload) isAdminLoggedIn = isAdmin(payload.payload);
+    }
+    res.status(404).render('404', { title: '404 NOT FOUND', isAdmin: isAdminLoggedIn })
 })

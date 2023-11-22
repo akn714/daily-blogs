@@ -17,6 +17,6 @@ const blogSchema = new Schema({
     }
 }, { timestamps: true})
 
-const Blog = mongoose.model(process.env.DB_MODEL_NAME, blogSchema)
+const Blog = mongoose.model('daily-blogs-db', blogSchema)
 
 module.exports = Blog;
